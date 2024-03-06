@@ -33,37 +33,37 @@
     }
     else {
       
-                  $.ajax({
-                      url: `https://cacciaapi.altervista.org/login.php/login`,
-                      type: 'POST',
-                      data: {
-                          username: username,
-                          password: CryptoJS.MD5(password).toString()
-                      },
-                      success: function(data) {
-                          
-                      },
-                      error: function() {
-                          alert('Errore nel login');
-                      }
-                  });
+      /*$.ajax({
+          url: `https://cacciaapi.altervista.org/login.php/login`,
+          type: 'POST',
+          data: {
+              username: username,
+              password: CryptoJS.MD5(password).toString()
+          },
+          success: function(data) {
+              
+          },
+          error: function() {
+              alert('Errore nel login');
+          }
+      });*/
 
       //chiamiamo il server per effettuare la verifica
-      /*fetch('https://www.cacciaapi.altervista.org/login.php/loginIpad', {
+      fetch('https://www.cacciaapi.altervista.org/login.php/loginIpad', {
         method: 'POST', // o 'GET'
         headers: {
-        'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        username: username,
-        password: password
+         "username": username,
+         "password": password
         }) 
       })
       .then(response => response.json()) // converte la risposta in JSON
       .then(data => console.log(data)) // stampa i dati
       .catch((error) => {
         console.error('Errore:', error);
-      });*/
+      });
 
     }
   }
