@@ -33,21 +33,6 @@
     }
     else {
       
-      /*$.ajax({
-          url: `https://cacciaapi.altervista.org/login.php/login`,
-          type: 'POST',
-          data: {
-              username: username,
-              password: CryptoJS.MD5(password).toString()
-          },
-          success: function(data) {
-              
-          },
-          error: function() {
-              alert('Errore nel login');
-          }
-      });*/
-
       //chiamiamo il server per effettuare la verifica
       fetch('https://www.cacciaapi.altervista.org/login.php/loginIpad', {
         method: 'POST', // o 'GET'
