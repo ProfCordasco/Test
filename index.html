@@ -1,23 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            max-width: 300px;
+            margin: auto;
+            padding-top: 50px;
+        }
+    </style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="common.js"></script>
+	
+</head>
+<body>
+
+  <label>Username</label>
+  <input type="text" id="username" />
+  <label>Password</label>
+  <input type="password" id="password"/>
+  <button type="submit" onclick="doLogin()">Login</button>
+
+  <script>
+  function doLogin() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if(username == "" || password == "") {
+      alert("Username e password sono obbligatori");
+    }
+    else {
+      $('#loginForm').on('submit', function(e) {
+                  e.preventDefault();
+                  const username = $('#username').val();
+                  const password = $('#password').val();
+                  $.ajax({
+                      url: `${endpoint}/login.php/login`,
+                      type: 'POST',
+                      data: {
+                          username: username,
+                          password: CryptoJS.MD5(password).toString()
+                      },
+                      success: function(data) {
+                          if (data.error) {
+                              alert(data.error);
+                          } else {
+                              setValue('sessionId', data.sessionId);
+                              setValue('isAdmin', data.isAdmin);
+                              setValue('username', username);
+                              window.location.href = 'visualizzaGame.html';
+                          }
+                      },
+                      error: function() {
+                          alert('Errore nel login');
+                      }
+                  });
+              });
+
+      //chiamiamo il server per effettuare la verifica
+      /*fetch('https://www.cacciaapi.altervista.org/login.php/loginIpad', {
+        method: 'POST', // o 'GET'
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        username: username,
+        password: password
+        }) 
+      })
+      .then(response => response.json()) // converte la risposta in JSON
+      .then(data => console.log(data)) // stampa i dati
+      .catch((error) => {
+        console.error('Errore:', error);
+      });*/
+
+    }
+  }
+  </script>
   </body>
-</html>
+  </html>
