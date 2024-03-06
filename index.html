@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         .form-container {
@@ -15,7 +14,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
-    <script src="common.js"></script>
 	
 </head>
 <body>
@@ -34,32 +32,21 @@
       alert("Username e password sono obbligatori");
     }
     else {
-      $('#loginForm').on('submit', function(e) {
-                  e.preventDefault();
-                  const username = $('#username').val();
-                  const password = $('#password').val();
+      
                   $.ajax({
-                      url: `${endpoint}/login.php/login`,
+                      url: `https://cacciaapi.altervista.org/login.php/login`,
                       type: 'POST',
                       data: {
                           username: username,
                           password: CryptoJS.MD5(password).toString()
                       },
                       success: function(data) {
-                          if (data.error) {
-                              alert(data.error);
-                          } else {
-                              setValue('sessionId', data.sessionId);
-                              setValue('isAdmin', data.isAdmin);
-                              setValue('username', username);
-                              window.location.href = 'visualizzaGame.html';
-                          }
+                          
                       },
                       error: function() {
                           alert('Errore nel login');
                       }
                   });
-              });
 
       //chiamiamo il server per effettuare la verifica
       /*fetch('https://www.cacciaapi.altervista.org/login.php/loginIpad', {
